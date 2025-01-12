@@ -1,28 +1,27 @@
-#include <iostream>
-#include "PhoneBook.hpp"
+# include "PhoneBook.hpp"
 
-int	main(void)
+int main()
 {
-	std::string	entry;
-	PhoneBook	phone_book;
+    PhoneBook phoneBook;
+    std::string input;
 
-	while (1)
-	{
-		std::cout << "\n##############################\n";
-		std::cout << "\nMY AWESOME PHONEBOOK\n\n";
-		std::cout << "ADD : add new contact\n";
-		std::cout << "SEARCH : search contact\n";
-		std::cout << "EXIT : exit & delete contacts\n";
-		std::cout << "\nType what you want here : ";
-		getline(std::cin, entry);
-		if (entry == "ADD")
-			phone_book.AddContact();
-		else if (entry == "SEARCH")
-			phone_book.Search();
-		else if (entry == "EXIT")
-			break ;
-		else
-			std::cout << "\nInvalid option !\n";
-	}
-	return (0);
+    while (1)
+    {
+        std::cout << "Enter a command (ADD, SEARCH, EXIT): ";
+        if (!std::getline(std::cin >> std::ws, input))
+		    return (EXIT_FAILURE);
+        std::cout << std::endl;
+        if (input == "ADD") {
+            if (phoneBook.addContact() == EXIT_FAILURE)
+                break ;
+        }
+        else if (input == "SEARCH") {
+            if (phoneBook.searchContact() == EXIT_FAILURE)
+                break ;
+        }
+        else if (input == "EXIT")
+            break ;
+        std::cout << std::endl;
+    }
+    return 0;
 }

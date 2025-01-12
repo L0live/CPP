@@ -1,60 +1,59 @@
 #include "Contact.hpp"
 
-void	Contact::NewContact(std::string new_contact[5])
+Contact::Contact()
 {
-	first_name = new_contact[0];
-	last_name = new_contact[1];
-	nickname = new_contact[2];
-	phone_number = new_contact[3];
-	darkest_secret = new_contact[4];
 }
 
-void	Contact::PrintIndex()
+Contact::~Contact()
 {
-	PutStringIndex(first_name);
-	std::cout << '|';
-	PutStringIndex(last_name);
-	std::cout << '|';
-	PutStringIndex(nickname);
-	std::cout << '\n';
 }
 
-void	Contact::PutStringIndex(std::string str)
+void Contact::setFirstName(std::string firstName)
 {
-	if (StringLenght(str) > 10)
-	{
-		for (size_t i = 0; i < 9; i++)
-		{
-			std::cout << str[i];
-		}
-		std::cout << '.';
-		return ;
-	}
-	for (size_t i = (10 - StringLenght(str)); i > 0; i--)
-	{
-		std::cout << ' ';
-	}
-	for (size_t i = 0; str[i]; i++)
-	{
-		std::cout << str[i];
-	}
+    this->firstName = firstName;
 }
 
-int	Contact::StringLenght(const std::string str)
+void Contact::setLastName(std::string lastName)
 {
-	for (size_t i = 0; str[i]; i++)
-	{
-		if (!str[i + 1])
-			return (i + 1);
-	}
-	return (0);
+    this->lastName = lastName;
 }
 
-void	Contact::PrintContact()
+void Contact::setNickname(std::string nickname)
 {
-	std::cout << "First Name : " << first_name << '\n';
-	std::cout << "Last Name : " << last_name << '\n';
-	std::cout << "Nickname : " << nickname << '\n';
-	std::cout << "Phone Number : " << phone_number << '\n';
-	std::cout << "Darkest Secret : " << darkest_secret << '\n';
+    this->nickname = nickname;
+}
+
+void Contact::setPhoneNumber(std::string phoneNumber)
+{
+    this->phoneNumber = phoneNumber;
+}
+
+void Contact::setDarkestSecret(std::string darkestSecret)
+{
+    this->darkestSecret = darkestSecret;
+}
+
+std::string Contact::getFirstName()
+{
+    return this->firstName;
+}
+
+std::string Contact::getLastName()
+{
+    return this->lastName;
+}
+
+std::string Contact::getNickname()
+{
+    return this->nickname;
+}
+
+std::string Contact::getPhoneNumber()
+{
+    return this->phoneNumber;
+}
+
+std::string Contact::getDarkestSecret()
+{
+    return this->darkestSecret;
 }

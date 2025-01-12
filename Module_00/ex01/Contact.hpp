@@ -1,22 +1,29 @@
-#ifndef CONTACT_H
-# define CONTACT_H
+#ifndef CONTACT_HPP
+#define CONTACT_HPP
 
-# include <iostream>
+#include <iostream>
 
-class Contact
+class   Contact
 {
-	private:
-		std::string first_name;
-		std::string last_name;
-		std::string nickname;
-		std::string phone_number;
-		std::string darkest_secret;
-		void	PutStringIndex(std::string str);
-		int		StringLenght(const std::string str);
-	public:
-		void	NewContact(std::string new_contact[5]);
-		void	PrintIndex();
-		void	PrintContact();
+    private:
+        std::string firstName;
+        std::string lastName;
+        std::string nickname;
+        std::string phoneNumber;
+        std::string darkestSecret;
+    public:
+        Contact();
+        ~Contact();
+        void setFirstName(std::string firstName);
+        void setLastName(std::string lastName);
+        void setNickname(std::string nickname);
+        void setPhoneNumber(std::string phoneNumber);
+        void setDarkestSecret(std::string darkestSecret);
+        std::string getFirstName();
+        std::string getLastName();
+        std::string getNickname();
+        std::string getPhoneNumber();
+        std::string getDarkestSecret();
 };
 
 #endif

@@ -1,23 +1,27 @@
-NAME=PhoneBook
-CC=c++
-CFLAGS=-Wall -Werror -Wextra -std=c++98 -g
+NAME=phonebook
+CPP=c++
+FLAGS=-Wall -Wextra -Werror -std=c++98
 SRCS=main.cpp Contact.cpp PhoneBook.cpp
 OBJS=$(SRCS:.cpp=.o)
-HEADERS=Contact.hpp PhoneBook.hpp
+HEADERS=Contact.hpp Phonebook.hpp
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+	@$(CPP) $(FLAGS) $(OBJS) -o $@
+	@echo "\n\nCPP builded"
 
-%.o : %.cpp $(HEADERS)
-	$(CC) $(CFLAGS) $< -c -o $@
-
-fclean: clean
-	rm -f $(NAME)
+%.o: %.cpp
+	@$(CPP) $(FLAGS) -c $<
+	@echo -n '.....'
 
 clean:
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
+	@echo "All objects clean"
+
+fclean: clean
+	@rm -f $(NAME)
+	@echo "And the executable too"
 
 re: fclean all
 
