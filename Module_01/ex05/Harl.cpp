@@ -1,61 +1,27 @@
 #include "Harl.hpp"
 
-Harl::Harl()
-{
-}
+Harl::Harl() {std::cout << "Constructor call" << std::endl;}
 
-void	Harl::debug(void) {
-	std::cout << "**the customer says something completely incomprehensible**\n";
-}
+Harl::~Harl() {std::cout << "Destructor call" << std::endl;}
 
-void	Harl::info(void) {
-	std::cout << "we all listen to what you have to say, with a smile of course\n";
-}
+void Harl::complain(std::string level) {
+	typedef void	(Harl::*complainMethod)(void);
+	complainMethod methods[] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+	std::string		levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-void	Harl::warning(void) {
-	std::cout << "I think we're going to need some help right now...🥹\n";
-}
-
-void	Harl::error(void) {
-	std::cout << "HELP, PLEASE HELP !!!\n";
-}
-
-static int	level_to_case(std::string level)
-{
-	if (level == "DEBUG\0")
-		return 1;
-	else if (level == "INFO\0")
-		return 2;
-	else if (level == "WARNING\0")
-		return 3;
-	else if (level == "ERROR\0")
-		return 4;
-	return 0;
-}
-
-void	Harl::complain(std::string level)
-{
-	switch (level_to_case(level))
-	{
-	case 1:
-		debug();
-		break;
-	case 2:
-		info();
-		break;
-	case 3:
-		warning();
-		break;
-	case 4:
-		error();
-		break;
-
-	default:
-		std::cout << "Error\nInvalid argument !\n";
-		break;
+	for (size_t i = 0; i < 4; i++) {
+		if (levels[i] == level) {
+			(this->*methods[i])();
+			return ;
+		}
 	}
+	std::cout << "Unknown level: " << level << std::endl;
 }
 
-Harl::~Harl()
-{
-}
+void	Harl::debug() {std::cout << "DEBUG explain" << std::endl;}
+
+void	Harl::info() {std::cout << "INFO explain" << std::endl;}
+
+void	Harl::warning() {std::cout << "WARNING explain" << std::endl;}
+
+void	Harl::error() {std::cout << "ERROR explain" << std::endl;}

@@ -1,16 +1,15 @@
-NAME=Harl
+NAME=HiThisIsBrain
 CC=c++
 CFLAGS=-Wall -Werror -Wextra -std=c++98
-SRCS=main.cpp Harl.cpp
+SRCS=main.cpp
 OBJS=$(SRCS:.cpp=.o)
-HEADERS=Harl.hpp
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
-%.o : %.cpp $(HEADERS)
+%.o : %.cpp
 	$(CC) $(CFLAGS) $< -c -o $@
 
 fclean: clean

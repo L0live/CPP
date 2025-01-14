@@ -5,16 +5,21 @@
 #include <cstdlib>
 #include "Contact.hpp"
 
-class PhoneBook
-{
-    private:
-        Contact contacts[8];
-        int index;
-    public:
-        PhoneBook();
-        ~PhoneBook();
-        int addContact();
-        int searchContact();
+class PhoneBook {
+    
+public:
+
+    PhoneBook();
+    ~PhoneBook();
+
+    int addContact();
+    int searchContact() const;
+
+private:
+
+    Contact contacts[8];
+    int index;
+
 };
 
 #endif

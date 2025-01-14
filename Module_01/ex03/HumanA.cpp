@@ -1,14 +1,10 @@
 #include "HumanA.hpp"
 
-void	HumanA::attack(void)
-{
-	std::cout << this->name << " attacks with their ";
-	std::cout << this->wpn.getType() << '\n';
+void	HumanA::attack(void) {
+	std::cout << name << " attacks with their " << wpn.getType() << std::endl;
 }
 
 HumanA::HumanA(std::string new_name, Weapon &w_type)
-	: wpn(w_type), name(new_name) {}
+	:name(new_name), wpn(w_type) {}
 
-HumanA::~HumanA()
-{
-}
+HumanA::~HumanA() {}

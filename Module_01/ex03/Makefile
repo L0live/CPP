@@ -1,6 +1,6 @@
 NAME=Violence
 CC=c++
-CFLAGS=-Wall -Werror -Wextra -std=c++98 -g
+CFLAGS=-Wall -Werror -Wextra -std=c++98
 SRCS=main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
 OBJS=$(SRCS:.cpp=.o)
 HEADERS=Weapon.hpp HumanA.hpp HumanB.hpp
