@@ -4,8 +4,7 @@ PhoneBook::PhoneBook(): index(0) {}
 
 PhoneBook::~PhoneBook() {}
 
-static bool isNumber(std::string str)
-{
+static bool isNumber(std::string str) {
 	for (std::string::iterator i = str.begin(); i != str.end(); i++) {
 		if (!std::isdigit(*i))
 			return false;
@@ -13,15 +12,13 @@ static bool isNumber(std::string str)
 	return true;
 }
 
-bool isSearchIndex(std::string str)
-{
+static bool isSearchIndex(std::string str) {
 	if (str.length() == 1 && str[0] >= '1' && str[0] <= '8')
 		return true;
 	return false;
 }
 
-static std::string	getField(std::string field, bool (*f)(std::string))
-{
+static std::string	getField(std::string field, bool (*f)(std::string)) {
 	std::string	input;
 
 	std::cout << field << ": ";
@@ -35,8 +32,7 @@ static std::string	getField(std::string field, bool (*f)(std::string))
 	return input;
 }
 
-int PhoneBook::addContact()
-{
+int PhoneBook::addContact() {
 	std::string	input;
 
     if (this->index == 8)
@@ -66,8 +62,7 @@ int PhoneBook::addContact()
 	return (EXIT_SUCCESS);
 }
 
-static std::string searchLineCleaner(std::string str)
-{
+static std::string searchLineCleaner(std::string str) {
 	if (str.length() > 10) {
 		str.resize(9);
 		str.append(".");
@@ -76,8 +71,7 @@ static std::string searchLineCleaner(std::string str)
 	return str;
 }
 
-int PhoneBook::searchContact()
-{
+int PhoneBook::searchContact() const {
 	std::string input;
 
 	if (this->contacts[0].getFirstName().empty())

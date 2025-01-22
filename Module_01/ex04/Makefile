@@ -1,16 +1,15 @@
 NAME=Replace
 CC=c++
-CFLAGS=-Wall -Werror -Wextra -std=c++98 -g
-SRCS=main.cpp FileManager.cpp
+CFLAGS=-Wall -Werror -Wextra -std=c++98
+SRCS=main.cpp
 OBJS=$(SRCS:.cpp=.o)
-HEADERS=FileManager.hpp
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
-%.o : %.cpp $(HEADERS)
+%.o : %.cpp
 	$(CC) $(CFLAGS) $< -c -o $@
 
 fclean: clean
