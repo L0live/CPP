@@ -10,9 +10,7 @@ private:
 
 public:
     Point();
-
     Point(float const x_val, float const y_val);
-
     Point(Point const &other);
 
     Point &operator=(Point const &other);
