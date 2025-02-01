@@ -4,6 +4,8 @@ int main() {
     ClapTrap clapTrap("Nathan");
     ClapTrap clapTrap2(clapTrap);
     ClapTrap clapTrap3 = clapTrap;
+    
+    std::cout << std::endl;
 
     clapTrap.attack("You");
     clapTrap.takeDamage(5);
@@ -16,5 +18,8 @@ int main() {
     }
     clapTrap3.beRepaired(5);
     clapTrap3.takeDamage(10);
+    
+    std::cout << std::endl;
+
     return 0;
 }
