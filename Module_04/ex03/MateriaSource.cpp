@@ -37,6 +37,8 @@ void MateriaSource::learnMateria(AMateria* m) {
             return;
         }
     }
+    std::cout << "Materia source is full, can't learn: " << m->getType() << std::endl;
+    delete m;
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type) {
@@ -45,5 +47,6 @@ AMateria* MateriaSource::createMateria(std::string const & type) {
             return _source[i]->clone();
         }
     }
+    std::cout << "Materia type not found: " << type << std::endl;
     return NULL;
 }

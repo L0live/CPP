@@ -1,6 +1,6 @@
 NAME=Materia
 CC=c++
-CFLAGS=-Wall -Werror -Wextra -std=c++98
+CFLAGS=-Wall -Werror -Wextra -std=c++98 -g
 SRCS=main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
 OBJS=$(SRCS:.cpp=.o)
 HEADERS=AMateria.hpp Character.hpp Cure.hpp Ice.hpp ICharacter.hpp IMateriaSource.hpp MateriaSource.hpp

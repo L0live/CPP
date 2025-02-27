@@ -1,10 +1,13 @@
 #include "Brain.hpp"
 
-Brain::Brain() {}
+Brain::Brain() {std::cout << "Brain default constructor called" << std::endl;}
 
-Brain::Brain(const Brain &src) {copyIdeas(src);}
+Brain::Brain(const Brain &src) {
+	copyIdeas(src);
+	std::cout << "Brain copy constructor called" << std::endl;
+}
 
-Brain::~Brain() {}
+Brain::~Brain() {std::cout << "Brain destructor called" << std::endl;}
 
 Brain &Brain::operator=(const Brain &src) {
 	if (this == &src) {
