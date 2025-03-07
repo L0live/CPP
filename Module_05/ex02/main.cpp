@@ -1,19 +1,18 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main(void) {
     
     try {
-        Bureaucrat  nathan("Nathan", 150);
+        Bureaucrat  nathan("Nathan", 1);
         std::cout << nathan << std::endl;
-        nathan.increment();
-        std::cout << nathan << std::endl;
-        nathan.decrement();
-        std::cout << nathan << std::endl;
-        Form form("Test", 56, 42);
+        ShrubberyCreationForm form;
         std::cout << form << std::endl;
         nathan.signForm(form);
         std::cout << form << std::endl;
+        nathan.executeForm(form);
     }
     catch(const std::exception& e) {
         std::cerr << e.what() << std::endl;
@@ -22,22 +21,26 @@ int main(void) {
     try {
         Bureaucrat  nathan("Nathan", 1);
         std::cout << nathan << std::endl;
-        nathan.decrement();
-        std::cout << nathan << std::endl;
-        nathan.increment();
-        std::cout << nathan << std::endl;
-        Form form("Test", 56, 42);
+        RobotomyRequestForm form(nathan.getName());
         std::cout << form << std::endl;
         nathan.signForm(form);
         std::cout << form << std::endl;
+        nathan.executeForm(form);
+        nathan.executeForm(form);
+        nathan.executeForm(form);
+        nathan.executeForm(form);
+        nathan.executeForm(form);
     }
     catch(const std::exception& e) {
         std::cerr << e.what() << std::endl;
     }
     std::cout << std::endl;
     try {
-        Form form("Test", 150, 0);
+        Bureaucrat  nathan("Nathan", 20);
+        std::cout << nathan << std::endl;
+        PresidentialPardonForm form("Nathan");
         std::cout << form << std::endl;
+        nathan.executeForm(form);
     }
     catch(const std::exception& e) {
         std::cerr << e.what() << std::endl;
