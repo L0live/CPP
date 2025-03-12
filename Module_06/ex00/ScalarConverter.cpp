@@ -11,85 +11,32 @@ ScalarConverter &ScalarConverter::operator=(ScalarConverter &src) {
 
 ScalarConverter::~ScalarConverter() {}
 
-static int	detectType(std::string &input) {
-	const int	error = 0;
-	int	type = 1;
-	bool	thereIsPoint = false;
-
-	for (std::string::iterator i = input.begin(); i < input.end(); ++i) {
-		if (*i < 32 || *i > 126)
-			return error;
-	}
-	if (input.length() == 1 && (input[0] < 48 || input[0] > 57))
-		return type;
-	++type;
-	for (std::string::iterator i = input.begin(); i < input.end(); ++i) {
-		if (!isdigit(*i)) {
-			if (*i == '.') {
-				if (thereIsPoint)
-					return error;
-				thereIsPoint = true;
-				++type;
-			} else if (*i == 'f') {
-				if (i + 1 != input.end())
-					return error;
-				if (!thereIsPoint)
-					++type;
-			} else if (i != input.begin() || *i != '-')
-				return error;
-		}
-	}
-	return type;
-}
-
-void    ScalarConverter::convert(std::string &input) {
-	char	a;
-	int		i;
-	double	d;
-
-	switch (detectType(input)) {
-	case 1:
-		a = input[0];
-		std::cout << "char: '" << a << "'" << std::endl;
-		std::cout << "int: " << static_cast<int>(a) << std::endl;
-		std::cout << "float: " << static_cast<float>(a) << ".0f" << std::endl;
-		std::cout << "double: " << static_cast<double>(a) << ".0" << std::endl;
-		break;
-	case 2:
-		i = atoi(input.c_str());
-		if (i >= 32 && i <= 126)
-			std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
-		else if (i >= 0 && i <= 127)
-			std::cout << "char: Non displayable" << std::endl;
-		else
+void ScalarConverter::convert(std::string &literal) {
+    char *endptr;
+    double d = strtod(literal.c_str(), &endptr);
+    if (*endptr == '\0' || (literal.length() > 1 && *endptr == 'f' && endptr[1] == '\0')) {
+        std::cout << "char: ";
+        if (d < 32 || d > 126 || std::isnan(d) || std::isinf(d))
+            std::cout << "Non displayable" << std::endl;
+        else // Demotion cast
+            std::cout << "'" << static_cast<char>(d) << "'" << std::endl;
+        std::cout << "int: " << static_cast<int>(d) << std::endl;
+		if (d == static_cast<int>(d))
+			std::cout << std::fixed << std::setprecision(1);
+		std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
+		std::cout << "double: " << d << std::endl;
+		std::cout.unsetf(std::ios::fixed);
+    } else if (literal.length() == 1) { // Promotion cast
+        std::cout << "char: '" << literal[0] << "'" << std::endl;
+        std::cout << "int: " << static_cast<int>(literal[0]) << std::endl;
+		std::cout << std::fixed << std::setprecision(1);
+        std::cout << "float: " << static_cast<float>(literal[0]) << "f" << std::endl;
+        std::cout << "double: " << static_cast<double>(literal[0]) << std::endl;
+		std::cout.unsetf(std::ios::fixed);
+    } else { // Error
 			std::cout << "char: impossible" << std::endl;
-		std::cout << "int: " << i << std::endl;
-		std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;
-		std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
-		break;
-	case 3:
-		d = atof(input.c_str());
-		i = static_cast<int>(d);
-		if (d == i && i >= 32 && i <= 126)
-			std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
-		else if (d == i && i >= 0 && i <= 127)
-			std::cout << "char: Non displayable" << std::endl;
-		else
-			std::cout << "char: impossible" << std::endl;
-		std::cout << "int: " << i << std::endl;
-		if (d == i) {
-			std::cout << "float: " << static_cast<float>(d) << ".0f" << std::endl;
-			std::cout << "double: " << d << ".0" << std::endl;
-		} else {
-			std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
-			std::cout << "double: " << d << std::endl;
-		}
-		break;
-	default:
-		std::cout << "char: impossible" << std::endl;
-		std::cout << "int: impossible" << std::endl;
-		std::cout << "float: nanf" << std::endl;
-		std::cout << "double: nan" << std::endl;
-		break;
-	}
+			std::cout << "int: impossible" << std::endl;
+			std::cout << "float: nanf" << std::endl;
+			std::cout << "double: nan" << std::endl;
+    }
 }
