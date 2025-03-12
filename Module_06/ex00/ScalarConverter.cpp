@@ -43,44 +43,45 @@ static int	detectType(std::string &input) {
 }
 
 void    ScalarConverter::convert(std::string &input) {
-	long long	i;
+	char	a;
+	int		i;
 	double	d;
 
 	switch (detectType(input)) {
 	case 1:
-		std::cout << "char: '" << input[0] << "'" << std::endl;
-		i = input[0];
-		std::cout << "int: " << i << std::endl;
-		std::cout << "float: " << i << ".0f" << std::endl;
-		std::cout << "double: " << i << ".0" << std::endl;
+		a = input[0];
+		std::cout << "char: '" << a << "'" << std::endl;
+		std::cout << "int: " << static_cast<int>(a) << std::endl;
+		std::cout << "float: " << static_cast<float>(a) << ".0f" << std::endl;
+		std::cout << "double: " << static_cast<double>(a) << ".0" << std::endl;
 		break;
 	case 2:
-		i = atoll(input.c_str());
+		i = atoi(input.c_str());
 		if (i >= 32 && i <= 126)
-			std::cout << "char: '" << (char)i << "'" << std::endl;
+			std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
 		else if (i >= 0 && i <= 127)
 			std::cout << "char: Non displayable" << std::endl;
 		else
 			std::cout << "char: impossible" << std::endl;
 		std::cout << "int: " << i << std::endl;
-		std::cout << "float: " << i << ".0f" << std::endl;
-		std::cout << "double: " << i << ".0" << std::endl;
+		std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;
+		std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
 		break;
 	case 3:
 		d = atof(input.c_str());
-		i = (int)d;
+		i = static_cast<int>(d);
 		if (d == i && i >= 32 && i <= 126)
-			std::cout << "char: '" << (char)i << "'" << std::endl;
+			std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
 		else if (d == i && i >= 0 && i <= 127)
 			std::cout << "char: Non displayable" << std::endl;
 		else
 			std::cout << "char: impossible" << std::endl;
 		std::cout << "int: " << i << std::endl;
 		if (d == i) {
-			std::cout << "float: " << d << ".0f" << std::endl;
+			std::cout << "float: " << static_cast<float>(d) << ".0f" << std::endl;
 			std::cout << "double: " << d << ".0" << std::endl;
 		} else {
-			std::cout << "float: " << d << "f" << std::endl;
+			std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
 			std::cout << "double: " << d << std::endl;
 		}
 		break;
