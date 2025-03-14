@@ -3,10 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
-#include <string>
 #include <cmath>
-#include <limits>
-#include <sstream>
 
 class ScalarConverter {
 private:

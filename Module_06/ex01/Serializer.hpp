@@ -5,11 +5,8 @@
 #include <stdint.h>
 
 typedef struct s_Data {
-    std::string firstName;
-    std::string lastName;
-    std::string nickname;
-    std::string phoneNumber;
-    std::string darkestSecret;
+    std::string someData;
+    std::string someOtherData;
 }	Data;
 
 class Serializer {
