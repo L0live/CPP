@@ -3,7 +3,7 @@ CC=c++
 CFLAGS=-Wall -Werror -Wextra -std=c++98
 SRCS=main.cpp
 OBJS=$(SRCS:.cpp=.o)
-HEADERS=Array.hpp
+HEADERS=Array.hpp Array.tpp
 
 all: $(NAME)
 
