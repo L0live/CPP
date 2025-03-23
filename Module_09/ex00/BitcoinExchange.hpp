@@ -8,13 +8,13 @@
 
 class BitcoinExchange {
 private:
-	typedef std::map<std::string, float>	btcMap;
+	typedef std::map<int, float>	btcMap;
 
 	btcMap	_data;
 
 	BitcoinExchange();
 public:
-	BitcoinExchange(std::string &dataFile);
+	BitcoinExchange(std::string dataFile);
 	BitcoinExchange(BitcoinExchange &src);
 	BitcoinExchange &operator=(BitcoinExchange &src);
 	~BitcoinExchange();
@@ -23,6 +23,12 @@ public:
 	public:
 		CouldNotOpenFileException() {}
 		const char* what() const throw() {return "Error: could not open file.";}
+	};
+
+	class OutOfBoundsException : public std::exception {
+	public:
+		OutOfBoundsException() {}
+		const char* what() const throw() {return "Error: out of bounds.";}
 	};
 
 	class NotPositiveException : public std::exception {
@@ -39,13 +45,15 @@ public:
 	
 	class BadInputException : public std::exception {
 	private:
-		std::string	_context;
+		std::string	_message;
 	public:
-		BadInputException(std::string context) : _context(context) {}
-		const char* what() const throw() {return ("Error: bad input => " + _context).c_str();}
+		BadInputException(std::string context) : _message("Error: bad input => " + context) {}
+		const char* what() const throw() {return _message.c_str();}
+		~BadInputException() throw() {}
 	};
 
-	float   getExchangeRate(std::string input);
+	float	getExchangeRate(std::string input);
+	void	exchangeRateFromFile(std::string inputFile);
 };
 
 
