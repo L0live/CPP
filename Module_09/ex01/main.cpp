@@ -8,7 +8,7 @@ int	main(int ac, char **av) {
 	try {
 		std::cout << RPN::calculateRPN(av[1]) << std::endl;
 	} catch (std::runtime_error &e) {
-		std::cerr << e.what() << std::endl;
+		std::cerr << "Error: " << e.what() << std::endl;
 		return 1;
 	}
 	return 0;
