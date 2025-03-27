@@ -1,9 +1,9 @@
 NAME=RPN
 CC=c++
 CFLAGS=-Wall -Werror -Wextra -std=c++98
-SRCS=main.cpp RPN.cpp
+SRCS=main.cpp PMergeMe.cpp
 OBJS=$(SRCS:.cpp=.o)
-HEADERS=RPN.hpp
+HEADERS=PMergeMe.hpp
 
 all: $(NAME)
 

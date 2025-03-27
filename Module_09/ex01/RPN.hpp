@@ -4,7 +4,6 @@
 #include <iostream>
 #include <stack>
 #include <sstream>
-#include <cmath>
 #include <stdexcept>
 #include <climits>
 

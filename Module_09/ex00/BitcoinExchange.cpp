@@ -34,23 +34,23 @@ float	BitcoinExchange::getExchangeRate(std::string input) {
 	if (pos == std::string::npos || pos != 11 || input.size() < 14
 		|| input[4] != '-' || input[7] != '-'
 		|| input[10] != ' ' || input[12] != ' ')
-		throw BadInputException(input);
+		throw std::runtime_error("Error: bad input => " + input);
 
 	char	*endptr;
 	float	value = strtof(input.substr(pos + 2).c_str(), &endptr);
 	if (std::isnan(value) || *endptr)
-		throw BadInputException(input);
+		throw std::runtime_error("Error: bad input => " + input);
 	if (std::isinf(value) || value > 1000)
-		throw TooLargeException();
+		throw std::runtime_error("Error: too large a number.");
 	if (value < 0)
-		throw NotPositiveException();
+		throw std::runtime_error("Error: not a positive number.");
 
 	input.erase(pos - 1);input.erase(7, 1);input.erase(4, 1);
 	int	date = atoi(input.c_str());
 	if (date % 100 > 31 || (date / 100) % 100 > 12)
-		throw BadInputException(input);
+		throw std::runtime_error("Error: bad input => " + input);
 	if (date < _data.begin()->first)
-		throw OutOfBoundsException();
+		throw std::runtime_error("Error: out of bounds.");
 
 	float	exchangeRate;
 	try {exchangeRate = _data.at(date) * value;
@@ -66,7 +66,7 @@ float	BitcoinExchange::getExchangeRate(std::string input) {
 void	BitcoinExchange::exchangeRateFromFile(std::string inputFile) {
 	std::ifstream	file(inputFile.c_str());
 	if (!file.is_open())
-		throw CouldNotOpenFileException();
+		throw std::runtime_error("Error: could not open file.");
 
 	std::string	line;
 	std::getline(file, line);
