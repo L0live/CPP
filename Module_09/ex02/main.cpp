@@ -1,4 +1,21 @@
 #include "PmergeMe.hpp"
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <deque>
+#include <ctime>
+#include <cerrno>
+
+std::ostream	&operator<<(std::ostream &o, const std::vector<int> &v) {
+	for (std::vector<int>::const_iterator it = v.begin(); it != v.end(); ++it) {
+		if (it == v.begin() + 5) {
+			o << "[...]";
+			break ;
+		}
+		o << *it << " ";
+	}
+	return o;
+}
 
 int	main(int ac, char **av) {
 	if (ac < 2) {
@@ -7,26 +24,38 @@ int	main(int ac, char **av) {
 	}
 
 	try {
-		std::vector<int>	container;
+		std::vector<int>	v;
+		std::deque<int>		d;
 	
-		char	*endptr;
-		for (size_t i = 1; i < ac; i++) {
+		for (int i = 1; i < ac; i++) {
 			if (!std::string(av[i]).size())
-				continue ;
-			long	nbr = std::strtol(av[i], &endptr, 10);
+			throw std::runtime_error("empty token is not allowed");
+			
+			char	*endptr;
+			long	nbr = strtol(av[i], &endptr, 10);
 			if (*endptr != '\0' || nbr < 0 || errno == ERANGE)
-				throw std::runtime_error("Error: invalid input => '" + std::string(av[i]) + "'");
-			container.push_back(static_cast<int>(nbr));
+				throw std::runtime_error("invalid token => " + std::string(av[i]));
+
+			v.push_back(static_cast<int>(nbr));
+			d.push_back(static_cast<int>(nbr));
 		}
-		if (!container.size())
-			throw std::runtime_error("Error: sequence of integers is empty");
+
+		std::cout << "Before:	" << v << std::endl;
+
+		clock_t start = clock();
+		mergeInsertSort(v, v.size());
+		clock_t end = clock();
+
+		std::cout << "After:	" << v << std::endl;
+	
+		std::cout << "Time to process a range of " << v.size() << " elements with std::vector : " << end - start << " µs" << std::endl;
 		
-		std::cout << "Before:	";
-		for (std::vector<int>::iterator it = container.begin(); it != container.end(); ++it) {
-			std::cout << *it << " ";
-		} std::cout << std::endl;
+		start = clock();
+		mergeInsertSort(d, d.size());
+		end = clock();
 		
-	} catch(std::exception	&e) {std::cerr << e.what() << std::endl;}
+		std::cout << "Time to process a range of " << d.size() << " elements with std::deque : " << end - start << " µs" << std::endl;
+	} catch(std::exception	&e) {std::cerr << "Error: " << e.what() << std::endl;}
 	
 	return 0;
 }

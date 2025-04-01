@@ -14,7 +14,7 @@ private:
 	RPN &operator=(const RPN &rpn);
 	~RPN();
 public:
-	static int calculateRPN(std::string expression);
+	static double calculateRPN(std::string expression);
 };
 
 

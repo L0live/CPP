@@ -8,36 +8,8 @@ RPN &RPN::operator=(const RPN &) {return *this;}
 
 RPN::~RPN() {}
 
-static int	doOperator(int a, int b, char op) {
-
-	long long tmp = a;
-
-	if (op == '+') {
-		if (tmp + b > INT_MAX || tmp + b < INT_MIN) {
-			throw std::runtime_error("Out of int range");
-		} return a + b;
-	}
-	if (op == '-') {
-		if (tmp - b > INT_MAX || tmp - b < INT_MIN) {
-			throw std::runtime_error("Out of int range");
-		} return a - b;
-	}
-	if (op == '*') {
-		if (tmp * b > INT_MAX || tmp * b < INT_MIN) {
-			throw std::runtime_error("Out of int range");
-		} return a * b;
-	}
-	if (op == '/') {
-		if (b == 0) throw std::runtime_error("Division by zero");
-		if (tmp / b > INT_MAX || tmp / b < INT_MIN) {
-			throw std::runtime_error("Out of int range");
-		} return a / b;
-	}
-	return 0;
-}
-
-int RPN::calculateRPN(std::string expression) {
-    std::stack<int> stack;
+double RPN::calculateRPN(std::string expression) {
+    std::stack<double> stack;
     std::istringstream iss(expression);
     std::string token;
 
@@ -47,9 +19,16 @@ int RPN::calculateRPN(std::string expression) {
         } else if (token == "+" || token == "-" || token == "*" || token == "/") {
             if (stack.size() < 2)
                 throw std::runtime_error("Invalid expression: not enough operands");
-            int b = stack.top(); stack.pop();
-            int a = stack.top(); stack.pop();
-            stack.push(doOperator(a, b, token[0]));
+            double b = stack.top(); stack.pop();
+            double a = stack.top(); stack.pop();
+			if (token == "+") stack.push(a + b);
+			else if (token == "-") stack.push(a - b);
+			else if (token == "*") stack.push(a * b);
+			else if (token == "/") {
+				if (b == 0)
+					throw std::runtime_error("Division by zero");
+				stack.push(a / b);
+			}
         } else {
             throw std::runtime_error("Invalid token: " + token);
         }
