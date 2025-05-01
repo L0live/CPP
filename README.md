@@ -21,8 +21,6 @@ This repository contains my completed exercises for the C++ modules 00 to 09 fro
   * [Module 08 – STL Containers & Algorithms](#module-08--stl-containers--algorithms)
   * [Module 09 – STL in Practice](#module-09--stl-in-practice)
 * [Tools & Setup](#-tools--setup)
-* [License](#-license)
-* [Author](#-author)
 
 ---
 
